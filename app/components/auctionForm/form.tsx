@@ -9,6 +9,7 @@ const AuctionForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
     const response = await fetch('/api/auctions', {
       method: 'POST',
       headers: {

@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useEffect, useState } from 'react';
 
 
@@ -19,7 +20,12 @@ export default function AuctionDetail({ params }: { params: { auctionId: string 
   useEffect(() => {
     const fetchAuction = async () => {
       try {
-        const response = await fetch(`/api`);
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        if (!apiUrl) {
+          throw new Error('API URL is not defined');
+        }
+
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -42,9 +48,6 @@ export default function AuctionDetail({ params }: { params: { auctionId: string 
     <div className="p-6 max-w-3xl mx-auto">
       <h2 className="text-3xl font-bold mb-6 text-center">Auction Detail</h2>
       <div className="border border-gray-300 p-6 rounded-lg shadow-lg bg-white">
-        <div className="relative w-full h-56 mb-6">
-         
-        </div>
         <h3 className="text-2xl font-semibold mb-2 text-gray-800">{auction.name}</h3>
         <p className="text-lg text-gray-700 mb-4">Start Price: <span className="font-semibold">${auction.startingPrice}</span></p>
         <p className="text-lg text-gray-700 mb-4">Current Price: <span className="font-semibold">${auction.currentPrice}</span></p>

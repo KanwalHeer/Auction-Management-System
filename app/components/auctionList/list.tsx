@@ -19,7 +19,12 @@ const AuctionList: React.FC = () => {
   useEffect(() => {
     const fetchAuctions = async () => {
       try {
-        const response = await fetch('/api');
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+        if (!apiUrl) {
+          throw new Error('API URL is not defined');
+        }
+
+        const response = await fetch(apiUrl);
         if (!response.ok) {
           throw new Error('Failed to fetch auctions');
         }
